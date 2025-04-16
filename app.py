@@ -34,22 +34,22 @@ if uploaded_file:
     # Обрезаем прогноз только на нужный период
     forecast_display = forecast.tail(forecast_period)
 
-	fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
 
-	# Строим график только для нужного периода
-	ax.plot(forecast_display['ds'], forecast_display['yhat'], label='Прогноз', color='blue', linewidth=2)
-	ax.fill_between(forecast_display['ds'], forecast_display['yhat_lower'], forecast_display['yhat_upper'], color='blue', alpha=0.2, label='Интервал доверия')
+    # Строим график только для нужного периода
+    ax.plot(forecast_display['ds'], forecast_display['yhat'], label='Прогноз', color='blue', linewidth=2)
+    ax.fill_between(forecast_display['ds'], forecast_display['yhat_lower'], forecast_display['yhat_upper'], color='blue', alpha=0.2, label='Интервал доверия')
 
-	ax.set_title(f"Прогноз спроса для {sku_selected} на {forecast_period} дней", fontsize=16)
-	ax.set_xlabel("Дата", fontsize=12)
-	ax.set_ylabel("Продажи", fontsize=12)
-	ax.legend()
+    ax.set_title(f"Прогноз спроса для {sku_selected} на {forecast_period} дней", fontsize=16)
+    ax.set_xlabel("Дата", fontsize=12)
+    ax.set_ylabel("Продажи", fontsize=12)
+    ax.legend()
 
-	# Форматирование дат на оси X
-	ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d'))
-	fig.autofmt_xdate()
+    # Форматирование дат на оси X
+    ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d'))
+    fig.autofmt_xdate()
 
-	st.pyplot(fig)
+    st.pyplot(fig)
 
 
     # Настройки графика
