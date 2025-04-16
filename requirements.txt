@@ -2,4 +2,3 @@ streamlit
 pandas
 prophet
 matplotlib
-openpyxl
