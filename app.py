@@ -32,7 +32,7 @@ if uploaded_file:
     st.dataframe(forecast.tail(forecast_period).reset_index(drop=True))
 
     # Обрезаем прогноз только на нужный период
-	forecast_display = forecast.tail(forecast_period)
+    forecast_display = forecast.tail(forecast_period)
 
 	fig, ax = plt.subplots(figsize=(10, 6))
 
