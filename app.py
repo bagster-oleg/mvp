@@ -1,11 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from forecast import prepare_data, forecast_demand
-
-# Настроим стиль для графиков
-sns.set(style="whitegrid")
 
 st.title("📦 Прогноз спроса и управление остатками")
 
@@ -50,22 +46,12 @@ if uploaded_file:
     ax.set_ylabel("Продажи", fontsize=12)
     ax.legend()
 
+    # Убедимся, что все даты отображаются на оси x
+    ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d'))
+    fig.autofmt_xdate()  # Автоматическая настройка наклона дат
+
     # Показываем график
     st.pyplot(fig)
-
-    # График компонента: тренд и сезонность
-    st.subheader("🌟 Компоненты прогноза")
-
-    fig2, ax2 = plt.subplots(figsize=(10, 6))
-    ax2.plot(forecast['ds'], forecast['yhat'], label='Тренд (yhat)', color='blue', linewidth=2)
-    ax2.fill_between(forecast['ds'], forecast['yhat_lower'], forecast['yhat_upper'], alpha=0.2, label='Интервал доверия')
-
-    ax2.set_title("Компоненты прогноза (Тренд и Интервалы)", fontsize=16)
-    ax2.set_xlabel("Дата", fontsize=12)
-    ax2.set_ylabel("Продажи", fontsize=12)
-    ax2.legend()
-
-    st.pyplot(fig2)
 
     # Закупка: рекомендации по заказу
     total_forecasted_demand = forecast.tail(forecast_period)['yhat'].sum()
