@@ -19,13 +19,13 @@ if uploaded_file:
     lead_time = st.number_input("⏳ Лаг поставки (дней)", min_value=0, max_value=60, value=2)
     stock_on_hand = st.number_input("📦 Текущий остаток на складе", min_value=0, value=30)
 
-	# загружаем файл, фильтруем по SKU
-	df_prepared = prepare_data(df, sku_selected)
+    # загружаем файл, фильтруем по SKU
+    df_prepared = prepare_data(df, sku_selected)
 
-	# получаем прогноз
-	forecast = forecast_demand(df_prepared, forecast_period)
+    # получаем прогноз
+    forecast = forecast_demand(df_prepared, forecast_period)
 
-	# отображаем результат
+    # отображаем результат
     st.subheader("🔮 Прогноз спроса:")
     st.dataframe(forecast.tail(forecast_period).reset_index(drop=True))
 
