@@ -38,6 +38,9 @@ if uploaded_file:
 
     # Строим график только для нужного периода
     ax.plot(forecast_display['ds'], forecast_display['yhat'], label='Прогноз', color='blue', linewidth=2)
+    # Добавь в график линию исторических продаж:
+    ax.plot(df_prepared['ds'], df_prepared['y'], label='Исторические продажи', color='gray', linestyle='--')
+
     ax.fill_between(forecast_display['ds'], forecast_display['yhat_lower'], forecast_display['yhat_upper'], color='blue', alpha=0.2, label='Интервал доверия')
 
     ax.set_title(f"Прогноз спроса для {sku_selected} на {forecast_period} дней", fontsize=16)
@@ -74,3 +77,5 @@ if uploaded_file:
     st.subheader("📊 Рекомендации:")
     st.markdown(f"**Прогноз спроса на {forecast_period} дней:** `{total_forecasted_demand:.1f}` ед.")
     st.markdown(f"**Рекомендуем заказать:** `{recommended_order:.1f}` ед. (учтён текущий остаток: {stock_on_hand}, лаг: {lead_time} дн)")
+    st.info("📘 *Интервал доверия* — это диапазон, в который с высокой вероятностью попадёт спрос. Например, 80% уверенность.")
+    st.download_button("📥 Скачать прогноз (CSV)", forecast_display.to_csv(index=False), "forecast.csv", "text/csv")
